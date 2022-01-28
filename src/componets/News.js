@@ -25,8 +25,8 @@ export class News extends Component {
     }
   }
 
-  async componentDidMount(){
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4e30a1f4471342deb1c3bc88646597b8&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+  async updateNews(){
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4e30a1f4471342deb1c3bc88646597b8&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({loading: true});
     let data = await fetch(url);
     let parseData = await data.json();
@@ -35,34 +35,20 @@ export class News extends Component {
       totalResults: parseData.totalResults,
       loading: false
     });
-    console.log(parseData);
+  }
+
+  async componentDidMount(){
+    this.updateNews();
   }
 
   handlePrevClick = async ()=>{
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4e30a1f4471342deb1c3bc88646597b8&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
-    this.setState({loading: true})
-    let data = await fetch(url);
-    let parseData = await data.json();
-    this.setState({
-      articles: parseData.articles,
-      page: this.state.page - 1,
-      loading: false
-    });
+    this.setState({page: --this.state.page});
+    this.updateNews();
   }
 
   handleNextClick = async ()=>{
-    console.log(Math.ceil(this.state.totalResults / this.props.pageSize));
-    if(Math.ceil(this.state.totalResults / this.props.pageSize) >= this.state.page + 1){
-      let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4e30a1f4471342deb1c3bc88646597b8&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
-      this.setState({loading: true})
-      let data = await fetch(url);
-      let parseData = await data.json();
-      this.setState({
-        articles: parseData.articles,
-        page: this.state.page + 1,
-        loading: false
-      });
-    }
+    this.setState({page: ++this.state.page});
+    this.updateNews();
   }
 
   render() {
