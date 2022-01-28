@@ -78,8 +78,10 @@ export class News extends Component {
               {!this.state.loading && this.state.articles.map((element)=>{
                 let description = (element.description)?element.description : `Lorem Ipsum is simply a dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type`;
                 let title = (element.title)?element.title : 'This is a demo news title. created by NewsStar';
-                let image = (element.urlToImage)?element.urlToImage : `https://media.istockphoto.com/photos/demo-picture-id828156368`
-                return <div key={element.url} className="col-xxl-3 col-lg-4 col-md-6 col-12 my-2 px-2"><NewsCard title={title} content={description} image={image} url={element.url} /></div>
+                let image = (element.urlToImage)?element.urlToImage : `https://media.istockphoto.com/photos/demo-picture-id828156368`;
+                let author = (element.author)?element.author:'Unknown';
+                let published = (element.publishedAt);
+                return <div key={element.url} className="col-xxl-3 col-lg-4 col-md-6 col-12 my-2 px-2"><NewsCard title={title} content={description} image={image} url={element.url} author={author} date={published} /></div>
               })}
           </div>
           <div className="row pagination">
