@@ -55,7 +55,7 @@ export class News extends Component {
     return (
         <div className="news container my-3 my-lg-5">
           <div className="row">
-            <h1 className="text-center pb-1">NewsStar - Top Headlines</h1>
+            <h1 className="text-center pb-1">NewsStar - Top ${this.props.category} Headlines</h1>
           </div>
           <div className="row">
               {this.state.loading && <Loading/>}
